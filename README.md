@@ -5,9 +5,11 @@ This code is under active development and this is an initial alpha release
 
 Installation
 --------------------
-*note*: Current version has been tested on an Ubuntu 14.04 server. 
+*note*: Current version has been tested on an Ubuntu 14.04 server. Please expect more frequent changes to this repo. Extensive test suite is WIP
 * Install red5 on an ubuntu server using standard installation procedure.
 * Deploy the war files from this project to webroot of Red5 tomcat and restart the server. 
+* To verify that everything is working, please point the aview client to this server and check if whiteboard collaboration is working.
+
 
 License
 ------------

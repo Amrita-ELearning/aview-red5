@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Red5Server" basedir="." default="build" >
+  <macrodef name="antdemo">
+    <attribute name="demo" />
+    <attribute name="target" default="dist" />
+    <sequential>
+      <echo message="antdemo demo=@{demo} target=@{target}"/>
+      <ant dir="@{demo}" target="@{target}"/>
+    </sequential>
+  </macrodef>
+
+  <target name="build"
+    depends="clean, init, build_wars, build_zip"
+    description="build all demos" />
+
+   <target name="clean"
+    description="build all demos that don't depend on Flex">
+   <antdemo demo="collaboration_module" target="clean"/>
+   <antdemo demo="pretesting_module" target="clean"/>
+   <antdemo demo="video_module" target="clean"/>
+   <antdemo demo="vod" target="clean"/>
+   <antdemo demo="desktopsharing_module" target="clean"/>
+   <delete dir="${basedir}/bin-release/red5" failOnError="false" includeEmptyDirs="true" />
+   <delete file="${basedir}/bin-release/red5.zip" failOnError="false" includeEmptyDirs="true" />
+  </target>
+  
+  <target name="init">
+   <antdemo demo="collaboration_module" target="init"/>
+   <antdemo demo="pretesting_module" target="init"/>
+   <antdemo demo="video_module" target="init"/>
+   <antdemo demo="vod" target="init"/>
+  </target>
+
+  <target name="build_wars">
+   <antdemo demo="collaboration_module" target="war"/>
+   <antdemo demo="pretesting_module" target="war"/>
+   <antdemo demo="video_module" target="war"/>
+   <antdemo demo="vod" target="war"/>
+   <antdemo demo="desktopsharing_module" target="war"/>
+  </target>
+  
+  <target name="build_zip">
+   <copy file="index.html" todir="${basedir}/bin-release/red5"/>
+   <zip destfile="${basedir}/bin-release/red5.zip"
+		basedir="${basedir}/bin-release/red5"/>
+  </target>
+</project>

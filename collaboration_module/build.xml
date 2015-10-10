@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Re5 Build File" basedir="." default="build">
+
+	<!--location of property file -->
+    <property file="${basedir}/build.properties" description="your specific properities for builds" />
+
+	<target name="build" depends="clean, init, war"/>
+
+	<target name="init">
+        <mkdir dir="${RED5_BUILD_DIR}"/>
+    </target>
+
+	<target name="clean">
+        <delete dir="${RED5_BUILD_DIR}" failOnError="false" includeEmptyDirs="true" />
+		<delete dir="${RED5_RELEASE_DIR}" failOnError="false" includeEmptyDirs="true" />
+	</target>
+	
+	<target name="war">
+		<path id="master-classpath">
+			<fileset dir="${RED5_LIBRARY_DIR}">
+				<include name="**/*.jar"/>
+			</fileset>
+		</path>
+		<javac srcdir="${RED5_SOURCE_DIR}" destdir="${RED5_BUILD_DIR}">
+			<classpath refid="master-classpath"/>
+		</javac>
+		<war destfile="${RED5_RELEASE_DIR}/collaboration_module.war" webxml="${basedir}/WebContent/WEB-INF/web.xml">
+			<fileset dir="${basedir}/WebContent"/>
+			<lib dir="${basedir}/lib" defaultexcludes="true">
+				<include name="*.jar"/>
+				<exclude name="red5.jar"/>
+			</lib>
+			<classes dir="${basedir}/classes"/>
+		</war>
+	</target>
+</project>

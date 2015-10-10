@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Re5 Build File" basedir="." default="build">
+
+	<!--location of property file -->
+    <property file="${basedir}/build.properties" description="your specific properities for builds" />
+
+	<target name="build" depends="clean, war"/>
+
+	<target name="clean">
+		<delete dir="${RED5_RELEASE_DIR}" failOnError="false" includeEmptyDirs="true" />
+	</target>
+	
+	<target name="war">
+		<path id="master-classpath">
+			<fileset dir="${RED5_LIBRARY_DIR}">
+				<include name="**/*.jar"/>
+			</fileset>
+		</path>
+		<war destfile="${RED5_RELEASE_DIR}/desktopsharing_module.war" webxml="${basedir}/WEB-INF/web.xml">
+			<!--<fileset dir="${basedir}">
+				<exclude name="build.*"/>
+			</fileset>-->
+			<!--<fileset dir="${basedir}/WebContent"/>-->
+			<fileset dir="${basedir}">
+				<include name="WEB-INF/*.*"/>
+			</fileset>
+		</war>
+	</target>
+</project>
